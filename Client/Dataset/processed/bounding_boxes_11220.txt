@@ -1,0 +1,78 @@
+Dataset/processed\khang\Khang21.png 745 547 1705 1558
+Dataset/processed\khang\Khang24.png
+Dataset/processed\khang\Khang7.png 462 593 1244 1334
+Dataset/processed\khang\Khang16.png 448 551 1379 1530
+Dataset/processed\khang\Khang6.png 458 429 1624 1619
+Dataset/processed\khang\Khang4.png 328 275 798 850
+Dataset/processed\khang\Khang11.png 410 670 1197 1511
+Dataset/processed\khang\Khang1.png 648 849 1567 1728
+Dataset/processed\khang\Khang9.png
+Dataset/processed\khang\Khang19.png 601 490 1640 1592
+Dataset/processed\khang\Khang22.png
+Dataset/processed\khang\Khang23.png 1159 645 1742 1339
+Dataset/processed\khang\Khang2.png
+Dataset/processed\khang\Khang20.png 656 426 1533 1358
+Dataset/processed\khang\Khang5.png
+Dataset/processed\khang\Khang3.png 438 409 1048 1145
+Dataset/processed\khang\Khang13.png 617 553 1708 1561
+Dataset/processed\khang\Khang8.png
+Dataset/processed\khang\Khang17.png 574 596 1352 1444
+Dataset/processed\khang\Khang18.png 479 377 1563 1435
+Dataset/processed\khang\Khang14.png
+Dataset/processed\khang\Khang10.png 472 531 1335 1424
+Dataset/processed\khang\Khang15.png 448 551 1379 1530
+Dataset/processed\khang\Khang12.png 653 723 1692 1714
+Dataset/processed\khanh\khanh25.png 1226 75 2707 1640
+Dataset/processed\khanh\khanh20.png 1264 162 2529 1385
+Dataset/processed\khanh\khanh7.png
+Dataset/processed\khanh\khanh18.png 1320 130 2588 1409
+Dataset/processed\khanh\khanh15.png 1320 200 2590 1423
+Dataset/processed\khanh\khanh3.png 1471 108 2777 1558
+Dataset/processed\khanh\khanh19.png 1291 131 2586 1445
+Dataset/processed\khanh\khanh4.png 1307 94 2723 1590
+Dataset/processed\khanh\khanh5.png 1246 136 2705 1514
+Dataset/processed\khanh\khanh28.png 1446 81 2813 1412
+Dataset/processed\khanh\khanh1.png
+Dataset/processed\khanh\khanh32.png 1380 162 2782 1415
+Dataset/processed\khanh\khanh33.png 1425 78 2809 1484
+Dataset/processed\khanh\khanh10.png 1263 0 2644 1318
+Dataset/processed\khanh\khanh2.png
+Dataset/processed\khanh\khanh16.png 1324 186 2557 1401
+Dataset/processed\khanh\khanh14.png 1329 0 2646 1277
+Dataset/processed\khanh\khanh23.png
+Dataset/processed\khanh\khanh31.png 1479 74 2810 1330
+Dataset/processed\khanh\khanh11.png 1332 0 2629 1278
+Dataset/processed\khanh\khanh29.png 1407 50 2829 1439
+Dataset/processed\khanh\khanh21.png 1248 215 2559 1351
+Dataset/processed\khanh\khanh9.png 1352 0 2593 1319
+Dataset/processed\khanh\khanh12.png 1220 11 2612 1395
+Dataset/processed\khanh\khanh26.png 1291 98 2695 1456
+Dataset/processed\khanh\khanh6.png 1271 69 2750 1532
+Dataset/processed\khanh\khanh27.png 1437 59 2841 1424
+Dataset/processed\khanh\khanh22.png 1260 169 2503 1341
+Dataset/processed\khanh\khanh8.png 1279 29 2704 1447
+Dataset/processed\khanh\khanh24.png
+Dataset/processed\khanh\khanh17.png 1253 172 2534 1383
+Dataset/processed\khanh\khanh13.png 1304 0 2635 1303
+Dataset/processed\khanh\khanh30.png
+Dataset/processed\haitc\HaiTC14.png 1078 886 2061 1919
+Dataset/processed\haitc\HaiTC21.png
+Dataset/processed\haitc\HaiTC11.png
+Dataset/processed\haitc\HaiTC19.png 862 1036 1850 2074
+Dataset/processed\haitc\HaiTC7.png 1512 1528 2059 2133
+Dataset/processed\haitc\HaiTC18.png 944 846 1918 1831
+Dataset/processed\haitc\HaiTC4.png 1230 918 2843 2448
+Dataset/processed\haitc\HaiTC17.png
+Dataset/processed\haitc\HaiTC6.png 688 455 2510 2071
+Dataset/processed\haitc\HaiTC20.png 952 1134 1966 2167
+Dataset/processed\haitc\HaiTC12.png
+Dataset/processed\haitc\HaiTC16.png 1016 940 2151 1986
+Dataset/processed\haitc\HaiTC9.png
+Dataset/processed\haitc\HaiTC5.png
+Dataset/processed\haitc\HaiTC8.png 853 888 2210 2349
+Dataset/processed\haitc\HaiTC10.png
+Dataset/processed\haitc\HaiTC3.png 1485 1191 2418 2304
+Dataset/processed\haitc\HaiTC13.png
+Dataset/processed\haitc\HaiTC15.png
+Dataset/processed\haitc\HaiTC2.png
+Dataset/processed\haitc\HaiTC1.png 1447 762 2413 1919
