@@ -1,0 +1,9 @@
+base64
+json
+opencv-python
+numpy
+kafka-python
+paho-mqtt
+ultralytics
+configparser
+time
