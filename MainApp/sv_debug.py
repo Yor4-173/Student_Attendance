@@ -2,7 +2,7 @@ import base64
 import json
 import cv2
 import numpy as np
-from kafka import KafkaConsumer
+from kafka import KafkaConsumer, KafkaProducer
 from ultralytics import YOLO
 import config  
 import time
@@ -11,6 +11,7 @@ import time
 model = YOLO("Model/yolo11s.pt") 
 # receive_topic = "receive_result"
 receive_topic = "TEST"
+send_topic = "SEND"
 
 # Kafka setup
 consumer = KafkaConsumer(
@@ -25,38 +26,48 @@ consumer = KafkaConsumer(
     fetch_max_bytes=9000000,
     value_deserializer=lambda x: json.loads(x.decode("utf-8")),
 )
+producer = KafkaProducer(
+    bootstrap_servers=[config.kafka_ip],
+    security_protocol="SSL",
+    ssl_cafile="root.crt",  
+    ssl_certfile="client.crt",
+    ssl_keyfile="client.key",
+    max_request_size = 9000000,
+)
+
 
 print("Server started. Waiting for images from Kafka...")
 
-for msg in consumer:
-    data = msg.value
-    room_id = data["RoomID"]
-    image_b64 = data["image"]
+while True:
+    for msg in consumer:
+        data = msg.value
+        room_id = data["RoomID"]
+        image_b64 = data["image"]
 
-    # Decode base64 -> image
-    img_bytes = base64.b64decode(image_b64)
-    nparr = np.frombuffer(img_bytes, np.uint8)
-    frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        # Decode base64 -> image
+        img_bytes = base64.b64decode(image_b64)
+        nparr = np.frombuffer(img_bytes, np.uint8)
+        frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
-    # Detect people
-    results = model(frame, verbose=False)
-    people_count = 0
-    for result in results:
-        for box in result.boxes:
-            cls_id = int(box.cls[0])
-            # 0 is class 'person' in COCO
-            if cls_id == 0:
-                people_count += 1
+        # Detect people
+        results = model(frame, verbose=False)
+        people_count = 0
+        for result in results:
+            for box in result.boxes:
+                cls_id = int(box.cls[0])
+                # 0 is class 'person' in COCO
+                if cls_id == 0:
+                    people_count += 1
 
-    # In kết quả ra console
-    telemetry_data = {
-        "room_id": room_id,
-        "people_count": people_count,
-        "timestamp": time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
-    }
-    print(telemetry_data)
-
-    print(f"Room {room_id}: {people_count} people detected.")
+        telemetry_data = {
+            "room_id": room_id,
+            "people_count": people_count,
+            "timestamp": time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+        }
+        producer.send(send_topic, json.dumps(telemetry_data).encode('utf-8'))
+        print("Result sended!")
+        producer.flush()
+        print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Room {room_id}: {people_count} people detected.")
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         print("Exit signal received. Shutting down...")
