@@ -9,17 +9,21 @@ from picamera2 import Picamera2, Preview
 
 kafka_ip = "192.168.43.58:9093"
 
-# topic_name_consumer = "send_result"
-# c = KafkaConsumer(
-#     topic_name_consumer,
-#     bootstrap_servers=[kafka_ip],
-#     auto_offset_reset='latest',
-#     enable_auto_commit=True,
-#     fetch_max_bytes=9000000,
-#     fetch_max_wait_ms=10000,
-# )
+topic_name_producer = "TEST"
+topic_name_receive = "SEND"
 
-topic_name_producer = "receive_result"
+c = KafkaConsumer(
+    topic_name_receive,
+    bootstrap_servers=[kafka_ip],
+    auto_offset_reset='latest',
+    enable_auto_commit=True,
+    security_protocol="SSL",
+    ssl_cafile="root.crt",      
+    ssl_certfile=None,                 
+    ssl_keyfile=None,  
+    fetch_max_bytes=9000000,
+    value_deserializer=lambda x: json.loads(x.decode("utf-8")),
+)
 p = KafkaProducer(
     bootstrap_servers=[kafka_ip],
     security_protocol="SSL",
@@ -28,7 +32,6 @@ p = KafkaProducer(
     ssl_keyfile="client.key",
     max_request_size=9000000,
 )
-
 picam = Picamera2()
 
 # Set up camera preview and configuration
@@ -70,31 +73,29 @@ def capture_and_send_image():
         time.sleep(5)
 
 # Function to consume messages from Kafka
-# def consumer_thread():
-#     try:
-#         for message in c:
-#             stream = message.value
-#             data = json.loads(stream)
-#             result = data['name']
-#             result_id = data['room']
-#             if result is not None and result_id is not None:
-#                 print("Student: ", result)
-#                 print("Room: ", result_id)
-#                 exit()
-#             else:
-#                 print("Warning: Invalid data received. Missing 'name' or 'room' key.")
-#     finally:
-#         c.close()
+def consumer_thread():
+    for message in c:
+        data = message.value
+        room = data['room_id']
+        count = data['people_count']
+        date =  data['timestamp']
+
+        if room is not None and count is not None:
+            print("Student: ", room)
+            print("Room: ", count)
+            print("Date:", date)
+        else:
+            print("Warning: Invalid data received.")
 
 # Start producer and consumer threads
 producer_t = threading.Thread(target=capture_and_send_image)
-# consumer_t = threading.Thread(target=consumer_thread)
+consumer_t = threading.Thread(target=consumer_thread)
 
 producer_t.start()
-# consumer_t.start()
+consumer_t.start()
 
 producer_t.join()
-# consumer_t.join()
+consumer_t.join()
 
 # Stop the preview and close the camera
 picam.close()
