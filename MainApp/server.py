@@ -28,14 +28,18 @@ def connect_mqtt():
     mqtt_client.connect(THINGSBOARD_HOST, THINGSBOARD_PORT, 60)
 
 # Load YOLOv11 model
-model = YOLO("yolov11n.pt") 
+model = YOLO("Model/yolo11s.pt") 
 
 # Kafka setup
 consumer = KafkaConsumer(
     "receive_result",
     bootstrap_servers=[config.kafka_ip],
-    auto_offset_reset="latest",
+    auto_offset_reset='latest',
     enable_auto_commit=True,
+    security_protocol="SSL",
+    ssl_cafile="root.crt",      
+    ssl_certfile=None,                 
+    ssl_keyfile=None,  
     fetch_max_bytes=9000000,
     value_deserializer=lambda x: json.loads(x.decode("utf-8")),
 )
@@ -72,6 +76,8 @@ for msg in consumer:
         "people_count": people_count,
         "timestamp": int(time.time())
     }
+    print(telemetry_data)
+
     mqtt_client.publish(MQTT_TOPIC, json.dumps(telemetry_data))
     print(f"Room {room_id}: {people_count} people detected → published to ThingsBoard.")
 

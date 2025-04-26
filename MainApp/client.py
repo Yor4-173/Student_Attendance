@@ -11,8 +11,12 @@ topic_name_consumer = "send_result"
 c = KafkaConsumer(
     topic_name_consumer,
     bootstrap_servers = [config.kafka_ip],
-    auto_offset_reset = 'latest',
-    enable_auto_commit = True,
+    auto_offset_reset='latest',
+    enable_auto_commit=True,
+    security_protocol="SSL",
+    ssl_cafile="root.crt",      
+    ssl_certfile=None,                 
+    ssl_keyfile=None,   
     fetch_max_bytes = 9000000,
     fetch_max_wait_ms = 10000,
 )
@@ -20,6 +24,9 @@ c = KafkaConsumer(
 topic_name_producer = "receive_result"
 p = KafkaProducer(
     bootstrap_servers=[config.kafka_ip],
+    ssl_cafile="root.crt",  
+    ssl_certfile="client.crt",
+    ssl_keyfile="client.key",
     max_request_size = 9000000,
 )
 

@@ -7,21 +7,25 @@ import json
 import threading
 from picamera2 import Picamera2, Preview
 
-kafka_ip = "192.168.43.188:9092"
+kafka_ip = "192.168.43.58:9093"
 
-topic_name_consumer = "send_result"
-c = KafkaConsumer(
-    topic_name_consumer,
-    bootstrap_servers=[kafka_ip],
-    auto_offset_reset='latest',
-    enable_auto_commit=True,
-    fetch_max_bytes=9000000,
-    fetch_max_wait_ms=10000,
-)
+# topic_name_consumer = "send_result"
+# c = KafkaConsumer(
+#     topic_name_consumer,
+#     bootstrap_servers=[kafka_ip],
+#     auto_offset_reset='latest',
+#     enable_auto_commit=True,
+#     fetch_max_bytes=9000000,
+#     fetch_max_wait_ms=10000,
+# )
 
 topic_name_producer = "receive_result"
 p = KafkaProducer(
     bootstrap_servers=[kafka_ip],
+    security_protocol="SSL",
+    ssl_cafile="root.crt",  
+    ssl_certfile="client.crt",
+    ssl_keyfile="client.key",
     max_request_size=9000000,
 )
 
@@ -66,31 +70,31 @@ def capture_and_send_image():
         time.sleep(5)
 
 # Function to consume messages from Kafka
-def consumer_thread():
-    try:
-        for message in c:
-            stream = message.value
-            data = json.loads(stream)
-            result = data['name']
-            result_id = data['room']
-            if result is not None and result_id is not None:
-                print("Student: ", result)
-                print("Room: ", result_id)
-                exit()
-            else:
-                print("Warning: Invalid data received. Missing 'name' or 'room' key.")
-    finally:
-        c.close()
+# def consumer_thread():
+#     try:
+#         for message in c:
+#             stream = message.value
+#             data = json.loads(stream)
+#             result = data['name']
+#             result_id = data['room']
+#             if result is not None and result_id is not None:
+#                 print("Student: ", result)
+#                 print("Room: ", result_id)
+#                 exit()
+#             else:
+#                 print("Warning: Invalid data received. Missing 'name' or 'room' key.")
+#     finally:
+#         c.close()
 
 # Start producer and consumer threads
 producer_t = threading.Thread(target=capture_and_send_image)
-consumer_t = threading.Thread(target=consumer_thread)
+# consumer_t = threading.Thread(target=consumer_thread)
 
 producer_t.start()
-consumer_t.start()
+# consumer_t.start()
 
 producer_t.join()
-consumer_t.join()
+# consumer_t.join()
 
 # Stop the preview and close the camera
 picam.close()
