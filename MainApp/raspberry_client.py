@@ -17,8 +17,8 @@ c = KafkaConsumer(
     enable_auto_commit=True,
     security_protocol="SSL",
     ssl_cafile="root.crt",      
-    ssl_certfile=None,                 
-    ssl_keyfile=None,  
+    ssl_certfile="server.crt",                 
+    ssl_keyfile="server.key",  
     fetch_max_bytes=9000000,
     value_deserializer=lambda x: json.loads(x.decode("utf-8")),
 )
