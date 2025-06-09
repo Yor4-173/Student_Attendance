@@ -5,16 +5,15 @@ from kafka import KafkaProducer
 topic_name = "TEST"
 
 p = KafkaProducer(
-    bootstrap_servers=[config.kafka_ip],
+    bootstrap_servers = [config.kafka_ip],
     security_protocol="SSL",
-    ssl_cafile="root.crt",                 # Truststore (CA cert)
-    ssl_certfile=None,                             # Nếu client có cert riêng thì điền vào
-    ssl_keyfile=None                               # Nếu client có key riêng thì điền vào
+    ssl_cafile="root.crt",  
+    ssl_certfile="client.crt",
+    ssl_keyfile="client.key",
+    value_serializer=lambda v: json.dumps(v).encode("utf-8"),
 )
 
-json_mess = json.dumps({"Name": "Alice"})
-
-p.send(topic_name, json_mess.encode("utf-8"))
+p.send(topic_name, {"Name": "Alice"})
 p.flush()
 
 print("Sent")

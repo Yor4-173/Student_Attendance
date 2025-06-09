@@ -5,7 +5,7 @@ import cv2
 import json
 import threading
 
-kafka_ip = "192.168.43.58:9093"
+kafka_ip = "192.168.1.88:9093"
 
 topic_name_producer = "TEST"
 topic_name_receive = "SEND"

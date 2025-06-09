@@ -10,8 +10,9 @@ import time
 # Load YOLOv11 model
 model = YOLO("Model/yolo11s.pt") 
 # receive_topic = "receive_result"
-receive_topic = "TEST"
-send_topic = "SEND"
+receive_topic = "SERVER_RECEIVE"
+# Topic to send results
+send_topic = "SERVER_SEND"
 
 # Kafka setup
 consumer = KafkaConsumer(
